@@ -31,6 +31,13 @@ def calcula_nova_posicao (heroi, direcao)
 	end
 	heroi
 end
+def posicao_valida? (posicao, mapa)
+	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X"
+		return false
+	end
+	true
+end
+
 
 def joga (nome)
 	mapa = le_mapa 1
@@ -41,23 +48,7 @@ def joga (nome)
 		heroi = encontra_jogador mapa
 		nova_posicao = calcula_nova_posicao heroi, direcao
 		
-		if nova_posicao[0] < 0
-			next
-		end
-
-		if nova_posicao[1] < 0
-			next
-		end
-
-		if nova_posicao[0] >= mapa.size
-			next
-		end
-
-		if nova_posicao[1] >= mapa[0].size
-			next
-		end
-
-		if mapa[nova_posicao[0]][nova_posicao[1]] == "X"
+		if !posicao_valida? nova_posicao, mapa
 			next
 		end
 
