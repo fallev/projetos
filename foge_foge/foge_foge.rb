@@ -21,13 +21,17 @@ def calcula_nova_posicao (heroi, direcao)
 	heroi = heroi.dup   #Não entendi essa linha, estava bugado sem ela
 	case direcao
 		when "W"
-			heroi[0] -= 1
+			heroi[0] += -1
+			heroi[1] += 0
 		when "S"
-			heroi[0] += 1
+			heroi[0] += +1
+			heroi[1] += 0
 		when "A"
-			heroi[1] -= 1
+			heroi[0] += 0
+			heroi[1] += -1
 		when "D"
-			heroi[1] += 1
+			heroi[0] += 0
+			heroi[1] += +1
 	end
 	heroi
 end
