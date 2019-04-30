@@ -18,23 +18,19 @@ def encontra_jogador (mapa)
 end
 
 def calcula_nova_posicao (heroi, direcao)
-	heroi = heroi.dup   #Não entendi essa linha, estava bugado sem ela
-	case direcao
-		when "W"
-			heroi[0] += -1
-			heroi[1] += 0
-		when "S"
-			heroi[0] += +1
-			heroi[1] += 0
-		when "A"
-			heroi[0] += 0
-			heroi[1] += -1
-		when "D"
-			heroi[0] += 0
-			heroi[1] += +1
-	end
+	heroi = heroi.dup
+	movimentos = {
+		"W" => [-1, 0],
+		"S" => [+1, 0],
+		"A" => [0, -1],
+		"D" => [0, +1]
+			}
+	movimento = movimentos[direcao]
+	heroi[0] += movimento[0]
+	heroi[1] += movimento[1]
 	heroi
 end
+
 def posicao_valida? (posicao, mapa)
 	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X"
 		return false
@@ -42,9 +38,27 @@ def posicao_valida? (posicao, mapa)
 	true
 end
 
+def move_fantasma (mapa, linha, coluna)
+	mapa[linha][coluna] = " "
+	linha += 0
+	coluna += 1
+	mapa[linha][coluna] = "F"
+end
+
+def move_fantasmas (mapa)
+	caractere_do_fantasma = "F"
+	mapa.each_with_index do |linha_atual, linha|
+		linha_atual.chars.each_with_index do |caractere_atual, coluna|
+			eh_fantasma = caractere_atual == caractere_do_fantasma
+			if eh_fantasma
+				move_fantasma mapa, linha, coluna
+			end
+		end
+	end
+end
 
 def joga (nome)
-	mapa = le_mapa 1
+	mapa = le_mapa 2
 
 	while true
 		desenha mapa
@@ -57,7 +71,9 @@ def joga (nome)
 		end
 
 		mapa[heroi[0]][heroi[1]] = " " 
-		mapa[nova_posicao[0]][nova_posicao[1]] = "H"	
+		mapa[nova_posicao[0]][nova_posicao[1]] = "H"
+
+		move_fantasmas mapa	
 		
 	end
 end
