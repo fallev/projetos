@@ -32,17 +32,18 @@ def calcula_nova_posicao (heroi, direcao)
 end
 
 def posicao_valida? (posicao, mapa)
-	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X"
+	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] != " "
 		return false
 	end
 	true
 end
 
 def move_fantasma (mapa, linha, coluna)
-	mapa[linha][coluna] = " "
-	linha += 0
-	coluna += 1
-	mapa[linha][coluna] = "F"
+	posicao = [linha, coluna + 1]
+	if posicao_valida? posicao, mapa	
+		mapa[linha][coluna] = " "
+		mapa[posicao[0]][posicao[1]] = "F"
+	end
 end
 
 def move_fantasmas (mapa)
