@@ -31,19 +31,44 @@ def calcula_nova_posicao (heroi, direcao)
 	heroi
 end
 
-def posicao_valida? (posicao, mapa)
+def posicao_valida? (mapa, posicao)
 	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] != " "
 		return false
 	end
 	true
 end
 
-def move_fantasma (mapa, linha, coluna)
-	posicao = [linha, coluna + 1]
-	if posicao_valida? posicao, mapa	
-		mapa[linha][coluna] = " "
-		mapa[posicao[0]][posicao[1]] = "F"
+def posicoes_validas_a_partir_de (mapa, posicao)
+	posicoes = []
+	baixo = [posicao[0] + 1, posicao[1]]
+	if posicao_valida?(mapa, baixo)
+		posicoes << baixo
 	end
+	direita = [posicao[0], posicao[1] + 1]
+	if posicao_valida?(mapa, direita)
+		posicoes << direita
+	end
+	cima = [posicao[0] - 1, posicao[1]]
+	if posicao_valida?(mapa, cima)
+		posicoes << cima
+	end
+	esquerda = [posicao[0], posicao[1] - 1]
+	if posicao_valida?(mapa, esquerda)
+		posicoes << esquerda
+	end
+	posicoes
+end
+
+def move_fantasma (mapa, linha, coluna)
+	posicoes = posicoes_validas_a_partir_de mapa, [linha, coluna]
+	if posicoes.empty?
+		return
+	end
+	
+	posicao = posicoes[0]
+
+	mapa[linha][coluna] = " "
+	mapa[posicao[0]][posicao[1]] = "F"
 end
 
 def move_fantasmas (mapa)
@@ -67,7 +92,7 @@ def joga (nome)
 		heroi = encontra_jogador mapa
 		nova_posicao = calcula_nova_posicao heroi, direcao
 		
-		if !posicao_valida? nova_posicao, mapa
+		if !posicao_valida? mapa, nova_posicao 
 			next
 		end
 
