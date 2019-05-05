@@ -32,7 +32,7 @@ def calcula_nova_posicao (heroi, direcao)
 end
 
 def posicao_valida? (mapa, posicao)
-	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X"
+	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X" || mapa[posicao[0]][posicao[1]] == "F"
 		return false
 	end
 	true
