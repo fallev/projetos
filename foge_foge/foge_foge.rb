@@ -14,7 +14,7 @@ def encontra_jogador (mapa)
 		if coluna_do_heroi != nil
 			jogador = Heroi.new
 			jogador.linha = linha
-			jogador,coluna = coluna_do_heroi
+			jogador.coluna = coluna_do_heroi
 			return jogador
 		end
 	end
@@ -87,14 +87,14 @@ def joga (nome)
 		desenha mapa
 		direcao = pede_movimento
 		heroi = encontra_jogador mapa
-		nova_posicao = heroi.calcula_nova_posicao direcao
+		nova_posicao = Heroi.calcula_nova_posicao(direcao)
 		
-		if !posicao_valida? mapa, nova_posicao 
+		if !posicao_valida? mapa, nova_posicao.to_array
 			next
 		end
 
-		mapa[heroi.coluna][heroi.linha] = " " 
-		mapa[nova_posicao[0]][nova_posicao[1]] = "H"
+		Heroi.remove_do mapa
+		nova_posicao.coloca_no mapa
 
 		mapa = move_fantasmas mapa	
 		if jogador_perdeu? mapa
