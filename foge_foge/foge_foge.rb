@@ -21,20 +21,6 @@ def encontra_jogador (mapa)
 	nil
 end
 
-def calcula_nova_posicao (heroi, direcao)
-	heroi = heroi.dup
-	movimentos = {
-		"W" => [-1, 0],
-		"S" => [+1, 0],
-		"A" => [0, -1],
-		"D" => [0, +1]
-			}
-	movimento = movimentos[direcao]
-	heroi[0] += movimento[0]
-	heroi[1] += movimento[1]
-	heroi
-end
-
 def posicao_valida? (mapa, posicao)
 	if posicao[0] < 0 || posicao[1] < 0 || posicao[0] >= mapa.size || posicao[1] >= mapa[0].size || mapa[posicao[0]][posicao[1]] == "X" || mapa[posicao[0]][posicao[1]] == "F"
 		return false
@@ -101,7 +87,7 @@ def joga (nome)
 		desenha mapa
 		direcao = pede_movimento
 		heroi = encontra_jogador mapa
-		nova_posicao = calcula_nova_posicao heroi, direcao
+		nova_posicao = heroi.calcula_nova_posicao direcao
 		
 		if !posicao_valida? mapa, nova_posicao 
 			next
