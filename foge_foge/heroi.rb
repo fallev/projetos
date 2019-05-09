@@ -1,8 +1,8 @@
 class Heroi
-	 attr_accessor :linha, :coluna
+	attr_accessor :linha, :coluna
 
-	def calcula_nova_posicao(direcao)
-		novo_heroi = self.dup
+	def self.calcula_nova_posicao(direcao)
+		novo_heroi = dup
 		movimentos = {
 			"W" => [-1, 0],
 			"S" => [+1, 0],
@@ -24,6 +24,6 @@ class Heroi
 	end
 
 	def coloca_no(mapa)
-		mapa[nova_posicao.linha][nova_posicao.coluna] = "H"
+		mapa[linha][coluna] = "H"
 	end
 end
