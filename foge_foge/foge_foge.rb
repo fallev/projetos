@@ -87,13 +87,13 @@ def joga (nome)
 		desenha mapa
 		direcao = pede_movimento
 		heroi = encontra_jogador mapa
-		nova_posicao = Heroi.calcula_nova_posicao direcao
+		nova_posicao = heroi.calcula_nova_posicao direcao
 		
 		if !posicao_valida? mapa, nova_posicao.to_array
 			next
 		end
-		
-		Heroi.remove_do mapa
+
+		heroi.remove_do mapa
 		nova_posicao.coloca_no mapa
 
 		mapa = move_fantasmas mapa	

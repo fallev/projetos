@@ -1,7 +1,7 @@
 class Heroi
 	attr_accessor :linha, :coluna
 
-	def self.calcula_nova_posicao(direcao)
+	def calcula_nova_posicao(direcao)
 		novo_heroi = dup
 		movimentos = {
 			"W" => [-1, 0],
