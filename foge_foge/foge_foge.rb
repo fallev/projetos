@@ -82,8 +82,8 @@ end
 
 def remove(mapa, posicao, quantidade)
 	for direita in 1..quantidade
-		posicao = posicao.calcula_nova_posicao "D"
-		mapa[posicao.linha][posicao.coluna] = " "
+		posicao = posicao.direita 
+		posicao.remove_do mapa
 	end
 end
 
