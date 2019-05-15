@@ -19,6 +19,18 @@ class Heroi
     	calcula_nova_posicao "D" 
     end
 
+    def esquerda
+    	calcula_nova_posicao "A" 
+    end
+
+    def baixo
+    	calcula_nova_posicao "S" 
+    end
+
+    def cima
+    	calcula_nova_posicao "W" 
+    end
+
 	def to_array
 		[linha, coluna]
 	end

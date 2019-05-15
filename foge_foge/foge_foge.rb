@@ -93,10 +93,13 @@ def remove(mapa, posicao, quantidade)
 		return
 	end
 	executa_remocao mapa, posicao.direita, quantidade
+	executa_remocao mapa, posicao.esquerda, quantidade
+	executa_remocao mapa, posicao.baixo, quantidade
+	executa_remocao mapa, posicao.cima, quantidade
 end
 
 def joga (nome)
-	mapa = le_mapa 3
+	mapa = le_mapa 4
 
 	while true
 		desenha mapa
